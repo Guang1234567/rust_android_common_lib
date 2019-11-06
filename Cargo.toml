@@ -1,0 +1,21 @@
+[package]
+name = "rust_android_common_lib"
+version = "0.1.0"
+authors = ["Guang1234567 <lihansey163@163.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+[target.'cfg(target_os="android")'.dependencies]
+jni = { version = "0.14.0", default-features = false }
+
+[profile.release]
+lto = true
+
+[lib]
+# 编译的动态库名字
+name = "greetings"
+# 编译类型 cdylib 指定为动态库
+crate-type = ["cdylib"]
