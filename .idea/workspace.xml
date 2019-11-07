@@ -13,12 +13,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bfdaa9cc-85a7-4013-8423-630aa4f0ff36" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/android/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/android/app/src/main/java/com/rust/example/android/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/example/android/app/src/main/java/com/rust/example/android/MainActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/android/app/src/main/jniLibs/arm64-v8a/libgreetings.so" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/example/android/app/src/main/jniLibs/armeabi-v7a/libgreetings.so" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/example/android/app/src/main/jniLibs/x86_64/libgreetings.so" beforeDir="false" />
@@ -40,8 +37,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/build_for_android.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="47" selection-start-line="12" selection-start-column="47" selection-end-line="12" selection-end-column="47" />
+            <state relative-caret-position="34">
+              <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -49,8 +46,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/lib.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="94">
-              <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+            <state relative-caret-position="321">
+              <caret line="34" column="60" selection-start-line="34" selection-start-column="60" selection-end-line="34" selection-end-column="60" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rust_android_common_lib.iml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="14" column="9" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -66,7 +72,6 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
-          <provider editor-type-id="Gfm" />
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
               <first_editor relative-caret-position="493">
@@ -85,9 +90,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/build_for_android.sh" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/Cargo.toml" />
+        <option value="$PROJECT_DIR$/build_for_android.sh" />
         <option value="$PROJECT_DIR$/src/lib.rs" />
       </list>
     </option>
@@ -95,11 +100,11 @@
   <component name="MacroExpansionManager">
     <option name="directoryName" value="aFmpuDXE" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
     <option name="x" value="1920" />
     <option name="y" value="303" />
     <option name="width" value="1280" />
-    <option name="height" value="799" />
+    <option name="height" value="777" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -109,12 +114,18 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="rust_android_common_lib" type="b2602c69:ProjectViewProjectNode" />
               <item name="rust_android_common_lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="rust_android_common_lib" type="b2602c69:ProjectViewProjectNode" />
+              <item name="rust_android_common_lib" type="462c0819:PsiDirectoryNode" />
+              <item name="example" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="rust_android_common_lib" type="b2602c69:ProjectViewProjectNode" />
@@ -136,20 +147,13 @@
               <item name="rust_android_common_lib" type="b2602c69:ProjectViewProjectNode" />
               <item name="rust_android_common_lib" type="462c0819:PsiDirectoryNode" />
               <item name="target" type="462c0819:PsiDirectoryNode" />
-              <item name="armv7-linux-androideabi" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="rust_android_common_lib" type="b2602c69:ProjectViewProjectNode" />
-              <item name="rust_android_common_lib" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-              <item name="armv7-linux-androideabi" type="462c0819:PsiDirectoryNode" />
+              <item name="aarch64-linux-android" type="462c0819:PsiDirectoryNode" />
               <item name="debug" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -193,7 +197,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Cargo Command.build --target aarch64-linux-android">
+  <component name="RunManager" selected="Cargo Command.clean">
     <configuration name="rust-gdb" type="CLion_Remote" remoteCommand="tcp:localhost:1337" symbolFile="" sysroot="">
       <method v="2" />
     </configuration>
@@ -227,6 +231,16 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="clean" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
+      <option name="channel" value="DEFAULT" />
+      <option name="command" value="clean" />
+      <option name="allFeatures" value="false" />
+      <option name="nocapture" value="false" />
+      <option name="backtrace" value="SHORT" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="org.ahren.android.native.debug" factoryName="LLDB" remote="unix-abstract-connect:///sdcard/debug.sock" adbCanRoot="false" AndroidLaunch="" androidPath="" androidSdkPath="$PROJECT_DIR$/../../sdk/android_sdk" androidNdkPath="$PROJECT_DIR$/../../sdk/android_sdk/ndk-bundle" androidProcessName="com.rust.example.android.debug">
       <method v="2" />
     </configuration>
@@ -235,6 +249,7 @@
     </configuration>
     <list>
       <item itemvalue="Android Native DEBUG.lldb-rust" />
+      <item itemvalue="Cargo Command.clean" />
       <item itemvalue="Cargo Command.build --target aarch64-linux-android" />
       <item itemvalue="Cargo Command.build --target armv7-linux-androideabi" />
       <item itemvalue="Cargo Command.build --target x86_64-linux-android" />
@@ -264,8 +279,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="303" width="1280" height="777" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49927008" visible="true" weight="0.26979" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49927008" visible="true" weight="0.27382874" />
       <window_info id="Structure" order="1" sideWeight="0.5007299" side_tool="true" weight="0.25767368" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -408,22 +424,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rust_android_common_lib.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="9" lean-forward="true" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/example/android/abcccc.txt" />
-    <entry file="file://$PROJECT_DIR$/build_for_android.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="47" selection-start-line="12" selection-start-column="47" selection-end-line="12" selection-end-column="47" />
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="Gfm" />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
           <first_editor relative-caret-position="493">
@@ -432,10 +440,18 @@
           <second_editor />
         </state>
       </provider>
-      <provider editor-type-id="Gfm" />
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rust_android_common_lib.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="9" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build_for_android.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
         </state>
       </provider>
     </entry>
@@ -448,8 +464,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/lib.rs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="94">
-          <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+        <state relative-caret-position="321">
+          <caret line="34" column="60" selection-start-line="34" selection-start-column="60" selection-end-line="34" selection-end-column="60" />
         </state>
       </provider>
     </entry>

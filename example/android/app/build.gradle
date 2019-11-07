@@ -58,7 +58,7 @@ android {
         }
     }
 
-    packagingOptions{
+    packagingOptions {
         doNotStrip "**/*.so"
     }
 
@@ -112,19 +112,31 @@ android {
         }
     }
 
-    task copyArm8NativeLib(type: Copy) {
-        from "./../../../target/aarch64-linux-android/${buildType}/libgreetings.so"
-        into "src/main/jniLibs/arm64-v8a"
+    task copyArm8NativeLib() {
+        doLast {
+            copy {
+                from "./../../../target/aarch64-linux-android/${buildType}/libgreetings.so"
+                into "src/main/jniLibs/arm64-v8a"
+            }
+        }
     }
 
-    task copyArm7NativeLib(type: Copy) {
-        from "./../../../target/armv7-linux-androideabi/${buildType}/libgreetings.so"
-        into "src/main/jniLibs/armeabi-v7a"
+    task copyArm7NativeLib() {
+        doLast {
+            copy {
+                from "./../../../target/armv7-linux-androideabi/${buildType}/libgreetings.so"
+                into "src/main/jniLibs/armeabi-v7a"
+            }
+        }
     }
 
-    task copyX86_64NativeLib(type: Copy) {
-        from "./../../../target/x86_64-linux-android/${buildType}/libgreetings.so"
-        into "src/main/jniLibs/x86_64"
+    task copyX86_64NativeLib() {
+        doLast {
+            copy {
+                from "./../../../target/x86_64-linux-android/${buildType}/libgreetings.so"
+                into "src/main/jniLibs/x86_64"
+            }
+        }
     }
 
     task copyNativeLib() {
