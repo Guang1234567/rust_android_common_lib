@@ -31,6 +31,8 @@ android {
     }
     buildTypes {
         release {
+            debuggable true
+            jniDebuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
@@ -38,6 +40,8 @@ android {
         }
 
         debug {
+            debuggable true
+            jniDebuggable true
             applicationIdSuffix ".debug"
         }
     }
@@ -52,6 +56,10 @@ android {
         main {
             jniLibs.srcDirs += ['libs']
         }
+    }
+
+    packagingOptions{
+        doNotStrip "**/*.so"
     }
 
     flavorDimensions 'cpuArch'
