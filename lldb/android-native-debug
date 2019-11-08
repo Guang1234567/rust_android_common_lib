@@ -1,0 +1,35 @@
+
+11/07 13:20:58: Launching app
+$ adb shell am start -n "com.rust.example.android.debug/com.rust.example.android.MainActivity" -a android.intent.action.MAIN -c android.intent.category.LAUNCHER -D
+Waiting for application to come online: com.rust.example.android.debug.test | com.rust.example.android.debug
+Waiting for application to come online: com.rust.example.android.debug.test | com.rust.example.android.debug
+Waiting for application to come online: com.rust.example.android.debug.test | com.rust.example.android.debug
+Waiting for application to come online: com.rust.example.android.debug.test | com.rust.example.android.debug
+Waiting for application to come online: com.rust.example.android.debug.test | com.rust.example.android.debug
+Connecting to com.rust.example.android.debug
+Now Launching Native Debug Session
+$ adb shell cat /data/local/tmp/lldb-server | run-as com.rust.example.android.debug sh -c 'cat > /data/data/com.rust.example.android.debug/lldb/bin/lldb-server && chmod 700 /data/data/com.rust.example.android.debug/lldb/bin/lldb-server'
+$ adb shell cat /data/local/tmp/start_lldb_server.sh | run-as com.rust.example.android.debug sh -c 'cat > /data/data/com.rust.example.android.debug/lldb/bin/start_lldb_server.sh && chmod 700 /data/data/com.rust.example.android.debug/lldb/bin/start_lldb_server.sh'
+Starting LLDB server: /data/data/com.rust.example.android.debug/lldb/bin/start_lldb_server.sh /data/data/com.rust.example.android.debug/lldb unix-abstract /sdcard debug.sock "lldb process:gdb-remote packets"
+
+
+
+adb shell am start -n "com.rust.example.android.debug/com.rust.example.android.MainActivity" -a android.intent.action.MAIN -c android.intent.category.LAUNCHER -D
+
+
+
+
+11/07 15:28:21: Launching app
+$ adb shell am start -n "com.rust.example.android.debug/com.rust.example.android.MainActivity" -a android.intent.action.MAIN -c android.intent.category.LAUNCHER -D
+Waiting for application to come online: com.rust.example.android.debug.test | com.rust.example.android.debug
+Waiting for application to come online: com.rust.example.android.debug.test | com.rust.example.android.debug
+Waiting for application to come online: com.rust.example.android.debug.test | com.rust.example.android.debug
+Connecting to com.rust.example.android.debug
+Now Launching Native Debug Session
+$ adb shell cat /data/local/tmp/lldb-server | run-as com.rust.example.android.debug sh -c 'cat > /data/data/com.rust.example.android.debug/lldb/bin/lldb-server && chmod 700 /data/data/com.rust.example.android.debug/lldb/bin/lldb-server'
+$ adb shell cat /data/local/tmp/start_lldb_server.sh | run-as com.rust.example.android.debug sh -c 'cat > /data/data/com.rust.example.android.debug/lldb/bin/start_lldb_server.sh && chmod 700 /data/data/com.rust.example.android.debug/lldb/bin/start_lldb_server.sh'
+Starting LLDB server: /data/data/com.rust.example.android.debug/lldb/bin/start_lldb_server.sh /data/data/com.rust.example.android.debug/lldb unix-abstract /com.rust.example.android.debug-0 platform-1573111702505.sock "lldb process:gdb-remote packets"
+
+
+
+/data/local/tmp/gdbserver :1337 --attach $(ps -A | grep com.rust.example.android.debug | awk '{print $2}')

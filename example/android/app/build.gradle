@@ -89,7 +89,7 @@ android {
         }
     }
 
-    def buildType = "release"
+    def buildType = "debug"
     applicationVariants.all { variant ->
         buildType = variant.buildType.name // Sets the current build type
     }
