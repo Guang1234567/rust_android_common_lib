@@ -40,7 +40,11 @@ https://github.com/Guang1234567/rust_android_common_lib/blob/2b13535653ee966446c
 ./gdb_rust.sh ${android_app_id} ${pid}
 
 # example
-./gdb_rust.sh com.rust.example.android.debug 1234
+./lldb/bin/start_gdb_server_arm64-v8a.sh com.rust.example.android.debug 1234
+
+or
+
+./lldb/bin/start_gdb_server_x86_64.sh com.rust.example.android.debug 1234
 
 ```
 
