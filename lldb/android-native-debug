@@ -17,6 +17,9 @@ Starting LLDB server: /data/data/com.rust.example.android.debug/lldb/bin/start_l
 adb shell am start -n "com.rust.example.android.debug/com.rust.example.android.MainActivity" -a android.intent.action.MAIN -c android.intent.category.LAUNCHER -D
 
 
+unix-abstract-connect:///com.rust.example.android.debug-0/platform-debug.sock
+
+
 
 
 11/07 15:28:21: Launching app

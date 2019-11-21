@@ -1,7 +1,7 @@
 package com.rust.example.android
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +16,8 @@ class MainActivity : AppCompatActivity() {
 
         // Example of a call to a native method
         sample_text.text = stringFromJNI() + greeting("world")
+
+        rustSqlite(getDatabasePath("rust_sqlite_demo.db").absolutePath)
     }
 
     /**
@@ -25,6 +27,8 @@ class MainActivity : AppCompatActivity() {
     external fun stringFromJNI(): String
 
     external fun greeting(pattern: String): String
+
+    external fun rustSqlite(dbPath: String): String
 
     companion object {
 

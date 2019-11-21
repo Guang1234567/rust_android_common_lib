@@ -10,6 +10,8 @@ PID=$2
 
 adb push gdbserver/arm64-v8a/gdbserver /data/local/tmp
 
+adb shell "run-as ${APP_ID} sh -c 'mkdir -p /data/data/${APP_ID}/files'"
+
 adb shell "cat /data/local/tmp/gdbserver | run-as ${APP_ID} sh -c 'cat > /data/data/${APP_ID}/files/gdbserver && chmod 700 /data/data/${APP_ID}/files/gdbserver'"
 
 adb push start_gdb_server_arm64-v8a.sh /data/local/tmp

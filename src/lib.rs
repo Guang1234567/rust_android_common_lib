@@ -1,30 +1,41 @@
+extern crate android_log;
+#[macro_use]
+extern crate diesel;
+#[macro_use]
+extern crate diesel_migrations;
+extern crate dotenv;
+extern crate jni;
 #[cfg(target_os = "android")]
 #[allow(non_snake_case)]
 #[macro_use]
 extern crate log;
-extern crate android_log;
+extern crate log_panics;
+
 
 use std::error::Error;
-use std::ffi::{CStr, CString};
-use std::os::raw::c_char;
 
-extern crate jni;
-use self::jni::JNIEnv;
-use self::jni::objects::{JClass, JString};
-use self::jni::sys::jstring;
+use jni::JNIEnv;
+use jni::objects::{JClass, JString};
+use jni::sys::jstring;
+
+use database::orm::do_some_db_op;
+use database::sqlite::SqliteHelper;
+
+mod database;
 
 #[no_mangle]
 pub unsafe extern fn Java_com_rust_example_android_MainActivity_greeting(
     env: JNIEnv,
     _: JClass,
     java_pattern: JString) -> jstring {
-
-    /*android_log::init("lhg").unwrap();
+    /*
+    android_log::init("app_rust").unwrap();
     trace!("Initialized Rust");
     debug!("Address is {:p}", Java_com_rust_example_android_MainActivity_greeting as *const ());
     info!("Did you know? {} = {}", "1 + 1", 2);
     warn!("Don't log sensitive information!");
-    error!("Nothing more to say");*/
+    error!("Nothing more to say");
+    */
 
 
     let input: String =
@@ -39,6 +50,28 @@ pub unsafe extern fn Java_com_rust_example_android_MainActivity_greeting(
     output.into_inner()
 }
 
+#[no_mangle]
+pub unsafe extern fn Java_com_rust_example_android_MainActivity_rustSqlite(
+    env: JNIEnv,
+    _: JClass,
+    database_path: JString) -> jstring {
+    let input: String =
+        env.get_string(database_path).expect("Couldn't get java string!").into();
+
+    /*let result = SqliteHelper::open(input.as_str())
+        .and_then(SqliteHelper::write_sth_to_db);
+
+    match result {
+        Ok(_) => info!("success !!!!!!!!!!!!!"),
+        Err(err) => error!("{}", err.description()),
+    }*/
+
+    do_some_db_op(input.clone());
+
+    let output = env.new_string(format!("Hello, {} from Rust!", input))
+        .expect("Couldn't create java string!");
+    output.into_inner()
+}
 
 #[cfg(test)]
 mod tests {
