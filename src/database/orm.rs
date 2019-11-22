@@ -1,100 +1,102 @@
 use std::env;
+use std::io::Write;
 
-use dotenv::dotenv;
-
+use diesel::connection::SimpleConnection;
 use diesel::prelude::*;
 use diesel::SqliteConnection;
 
-use super::schema::posts::dsl::{posts, published as posts_published, title as posts_title};
-use super::models::{Post, NewPost};
-use std::error::Error;
-use diesel::connection::SimpleConnection;
+use crate::error::LibResult;
+use crate::logger::MyLogger;
 
-embed_migrations!("./migrations");
+use super::models::{NewPost, Post};
+use super::schema::posts::dsl::{posts as posts_table, published as posts_published, title as posts_title};
 
-pub fn establish_connection(database_url: String) -> SqliteConnection {
-    dotenv().ok();
+pub fn do_some_db_op(database_url: String) -> LibResult<()> {
+    let conn = &establish_connection(database_url)?;
 
+    db_migrations(conn)?;
+
+    let inserted_rows = create_post(conn, "title001", "body001")?;
+
+    publish_post(conn, 1)?;
+
+    show_posts(conn)?;
+
+    Ok(())
+}
+
+pub fn establish_connection(database_url: String) -> LibResult<SqliteConnection> {
     /*
     let database_url = env::var("DATABASE_URL")
         .expect("DATABASE_URL must be set");
     */
-    SqliteConnection::establish(&database_url)
-        .expect(&format!("Error connecting to {}", database_url))
+    Ok(SqliteConnection::establish(&database_url)?)
 }
 
-
-pub fn do_some_db_op(database_url: String) {
-    android_log::init("app_rust_sql").unwrap();
-    log_panics::init();
-
-    let connection = &establish_connection(database_url);
-
-    db_migrations(connection);
-
-    let postId = create_post(connection, "title001", "body001");
-
-    publish_post(connection, postId as i32);
-
-    show_posts(connection)
+pub fn db_migrations(conn: &SqliteConnection) -> LibResult<()> {
+    warn!(">>>>>>>---------------------  db_migrations  ---------------------");
+    embed_migrations!("./migrations");
+    let output = &mut MyLogger::new();
+    let r = embedded_migrations::run_with_output(conn, output)?;
+    output.flush();
+    warn!("<<<<<<<---------------------  db_migrations  ---------------------");
+    Ok(r)
 }
 
-pub fn db_migrations(conn: &SqliteConnection) {
-    //conn.batch_execute()
-
-    // This will run the necessary migrations.
-    embedded_migrations::run(conn);
-
-    // By default the output is thrown out. If you want to redirect it to stdout, you
-    // should call embedded_migrations::run_with_output.
-    embedded_migrations::run_with_output(conn, &mut std::io::stdout());
-}
-
-pub fn show_posts(conn: &SqliteConnection) {
-    let results = posts
+pub fn show_posts(conn: &SqliteConnection) -> LibResult<Vec<Post>> {
+    let posts: Vec<Post> = posts_table
         .filter(posts_published.eq(true))
         .limit(5)
-        .load::<Post>(conn)
-        .expect("Error loading posts");
+        .load::<Post>(conn)?;
+    //.expect("Error loading posts");
 
-    info!("Displaying {} posts", results.len());
-    for post in results {
+    info!("Displaying {} posts", posts.len());
+    for post in &posts {
         info!("{}", post.title);
         info!("----------\n");
         info!("{}", post.body);
     }
+
+    Ok(posts)
 }
 
-pub fn create_post(conn: &SqliteConnection, title: &str, body: &str) -> usize {
+pub fn create_post(conn: &SqliteConnection, title: &str, body: &str) -> LibResult<usize> {
     let new_post = NewPost { title, body };
 
-    diesel::insert_into(posts)
+    let inserted_rows = diesel::insert_into(posts_table)
         .values(&new_post)
-        .execute(conn)
-        .expect("Error saving new post")
+        .execute(conn)?;
+    //.expect("Error saving new post")
+
+    info!("create_post  inserted_rows={}", inserted_rows);
+
+    Ok(inserted_rows)
 }
 
-
-pub fn publish_post(conn: &SqliteConnection, id: i32) {
-    let num_updated = diesel::update(posts.find(id))
+pub fn publish_post(conn: &SqliteConnection, id: i32) -> LibResult<Post> {
+    let updated_rows = diesel::update(posts_table.find(id))
         .set(posts_published.eq(true))
-        .execute(conn)
-        .unwrap_or_else(|_| panic!("Unable to find post {}", id));
+        .execute(conn)?;
+    //.unwrap_or_else(|_| panic!("Unable to find post {}", id));
 
-    let post: Post = posts
+    let post: Post = posts_table
         .find(id)
-        .first(conn)
-        .unwrap_or_else(|_| panic!("Unable to find post {}", id));
+        .first(conn)?;
+    //.unwrap_or_else(|_| panic!("Unable to find post {}", id));
 
     info!("Published post {}", post.title);
+
+    Ok(post)
 }
 
-pub fn delete_post(conn: &SqliteConnection, pattern: String) {
+pub fn delete_post(conn: &SqliteConnection, pattern: String) -> LibResult<usize> {
     let pattern = format!("%{}%", pattern);
 
-    let num_deleted = diesel::delete(posts.filter(posts_title.like(pattern)))
-        .execute(conn)
-        .expect("Error deleting posts");
+    let deleted_rows = diesel::delete(posts_table.filter(posts_title.like(pattern)))
+        .execute(conn)?;
+    //.expect("Error deleting posts");
 
-    info!("Deleted {} posts", num_deleted);
+    info!("Deleted {} posts", deleted_rows);
+
+    Ok(deleted_rows)
 }

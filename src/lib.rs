@@ -14,13 +14,17 @@ extern crate log_panics;
 
 use std::error::Error;
 
+use dotenv::dotenv;
 use jni::JNIEnv;
 use jni::objects::{JClass, JString};
 use jni::sys::jstring;
 
 use database::orm::do_some_db_op;
 use database::sqlite::SqliteHelper;
+use logger::MyLogger;
 
+mod logger;
+mod error;
 mod database;
 
 #[no_mangle]
@@ -55,18 +59,23 @@ pub unsafe extern fn Java_com_rust_example_android_MainActivity_rustSqlite(
     env: JNIEnv,
     _: JClass,
     database_path: JString) -> jstring {
+
+    dotenv().ok();
+
+    let result = MyLogger::init("app_rust_sql_123");
+    match result {
+        Ok(_) => info!("MyLogger::init success !!!!!!!!!!!!!"),
+        Err(err) => error!("{}", err.description()),
+    }
+
     let input: String =
         env.get_string(database_path).expect("Couldn't get java string!").into();
 
-    /*let result = SqliteHelper::open(input.as_str())
-        .and_then(SqliteHelper::write_sth_to_db);
-
+    let result = do_some_db_op(input.clone());
     match result {
-        Ok(_) => info!("success !!!!!!!!!!!!!"),
-        Err(err) => error!("{}", err.description()),
-    }*/
-
-    do_some_db_op(input.clone());
+        Ok(_) => info!("do_some_db_op:  success !!!!!!!!!!!!!"),
+        Err(err) => error!("do_some_db_op: {}", err.description()),
+    }
 
     let output = env.new_string(format!("Hello, {} from Rust!", input))
         .expect("Couldn't create java string!");

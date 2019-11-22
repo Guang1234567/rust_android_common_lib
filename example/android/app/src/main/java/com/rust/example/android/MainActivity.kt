@@ -15,9 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         // Example of a call to a native method
-        sample_text.text = stringFromJNI() + greeting("world")
-
-        rustSqlite(getDatabasePath("rust_sqlite_demo.db").absolutePath)
+        sample_text.text = stringFromJNI() + greeting("world") + "\n\n" + rustSqlite(getDatabasePath("rust_sqlite_demo.db").absolutePath)
     }
 
     /**

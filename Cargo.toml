@@ -7,7 +7,7 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-log = "0.4"
+log = "0.4.8"
 log-panics = {version = "2.0.0", features = ["with-backtrace"]}
 time = "0.1.42"
 dotenv = "0.10"
