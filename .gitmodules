@@ -1,0 +1,3 @@
+[submodule "third_part_libs/android_log-rs"]
+	path = third_part_libs/android_log-rs
+	url = git@github.com:Guang1234567/android_log-rs.git

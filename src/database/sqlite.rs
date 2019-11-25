@@ -26,7 +26,6 @@ impl SqliteHelper {
     }
 
     pub fn write_sth_to_db(mut conn: Connection) -> Result<()> {
-        android_log::init("app_rust_sql").unwrap();
 
         let tx = conn.transaction()?;
 

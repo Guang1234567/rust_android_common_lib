@@ -10,6 +10,8 @@ extern crate jni;
 #[macro_use]
 extern crate log;
 extern crate log_panics;
+#[macro_use]
+extern crate lazy_static;
 
 
 use std::error::Error;

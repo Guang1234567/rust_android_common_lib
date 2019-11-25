@@ -1,11 +1,16 @@
 use std::io::{Result as IoResult, Write};
 use crate::error::LibResult;
+use android_log::AndroidLogger;
+
+lazy_static! {
+    static ref MY_ANDROID_LOGGER: AndroidLogger = AndroidLogger::new("lhg123");
+}
 
 pub struct MyLogger {}
 
 impl MyLogger {
     pub fn init<S: Into<String>>(tag: S) -> LibResult<()> {
-        android_log::init(tag)?;
+        MY_ANDROID_LOGGER.init()?;
         log_panics::init();
         Ok(())
     }
