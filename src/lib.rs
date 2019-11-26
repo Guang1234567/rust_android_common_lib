@@ -1,4 +1,5 @@
-extern crate android_log;
+// extern crate android_log;
+extern crate android_logger;
 #[macro_use]
 extern crate diesel;
 #[macro_use]
@@ -17,6 +18,7 @@ extern crate lazy_static;
 use std::error::Error;
 
 use dotenv::dotenv;
+use load_dotenv::{load_dotenv, load_dotenv_from_filename};
 use jni::JNIEnv;
 use jni::objects::{JClass, JString};
 use jni::sys::jstring;
@@ -28,6 +30,14 @@ use logger::MyLogger;
 mod logger;
 mod error;
 mod database;
+
+
+// load your .env file at compile time
+// load_dotenv!();
+
+// load your .env.android file at compile time
+load_dotenv_from_filename!(".env.android");
+
 
 #[no_mangle]
 pub unsafe extern fn Java_com_rust_example_android_MainActivity_greeting(
@@ -62,18 +72,25 @@ pub unsafe extern fn Java_com_rust_example_android_MainActivity_rustSqlite(
     _: JClass,
     database_path: JString) -> jstring {
 
-    dotenv().ok();
+    //dotenv().ok();
 
     let result = MyLogger::init("app_rust_sql_123");
     match result {
-        Ok(_) => info!("MyLogger::init success !!!!!!!!!!!!!"),
+        Ok(_) => {
+            trace!("MyLogger::init success !!!");
+            debug!("MyLogger::init success !!!");
+            info!("MyLogger::init success !!!");
+            warn!("MyLogger::init success !!!");
+            error!("MyLogger::init success !!!");
+        }
         Err(err) => error!("{}", err.description()),
     }
 
     let input: String =
         env.get_string(database_path).expect("Couldn't get java string!").into();
 
-    let result = do_some_db_op(input.clone());
+    let database_url: &str = env!("DATABASE_URL","You forgot to export DATABASE_URL path");
+    let result = do_some_db_op(format!("{}_{}", input, database_url));
     match result {
         Ok(_) => info!("do_some_db_op:  success !!!!!!!!!!!!!"),
         Err(err) => error!("do_some_db_op: {}", err.description()),

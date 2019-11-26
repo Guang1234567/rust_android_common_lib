@@ -4,11 +4,13 @@
 
 APP_ID=$1
 PORT=1337
-PID=$2
 
 #adb push gdbserver/x86_64/gdbserver /data/local/tmp
 
 adb push gdbserver/arm64-v8a/gdbserver /data/local/tmp
+
+PID=`adb shell "ps -A | grep ${APP_ID}" | awk '{ print $2 }'`
+echo "${APP_ID} 's pid = ${PID}"
 
 adb shell "run-as ${APP_ID} sh -c 'mkdir -p /data/data/${APP_ID}/files'"
 
