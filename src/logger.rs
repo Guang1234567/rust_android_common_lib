@@ -2,7 +2,7 @@ use std::io::{Result as IoResult, Write};
 use crate::error::LibResult;
 //use android_log::AndroidLogger;
 use log::Level;
-use android_logger::{Config,FilterBuilder};
+use android_logger::{Config, FilterBuilder};
 
 /*
 lazy_static! {
@@ -18,11 +18,11 @@ impl MyLogger {
         android_logger::init_once(
             Config::default()
                 .with_min_level(Level::Trace) // limit log level
-                /*.with_tag("rust_demo_so") // logs will show under mytag tag
+                .with_tag(env!("RUST_LOG_TAG","You forgot to export RUST_LOG_TAG")) // logs will show under mytag tag
                 .with_filter( // configure messages for specific crate
                               FilterBuilder::new()
-                                  .parse("debug,greetings=info") // `greetings` is dynamic-share-lib-name in Cargo.toml
-                                  .build())*/
+                                  .parse(env!("RUST_LOG_FILTER","You forgot to export RUST_LOG_TAG")) // `greetings` is dynamic-share-lib-name in Cargo.toml
+                                  .build())
         );
 
         log_panics::init();

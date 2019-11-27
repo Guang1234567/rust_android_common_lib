@@ -1,3 +1,5 @@
+#[cfg(target_os = "android")]
+#[allow(non_snake_case)]
 // extern crate android_log;
 extern crate android_logger;
 #[macro_use]
@@ -6,38 +8,33 @@ extern crate diesel;
 extern crate diesel_migrations;
 extern crate dotenv;
 extern crate jni;
-#[cfg(target_os = "android")]
-#[allow(non_snake_case)]
+#[macro_use]
+extern crate lazy_static;
 #[macro_use]
 extern crate log;
 extern crate log_panics;
-#[macro_use]
-extern crate lazy_static;
 
 
 use std::error::Error;
 
 use dotenv::dotenv;
-use load_dotenv::{load_dotenv, load_dotenv_from_filename};
 use jni::JNIEnv;
 use jni::objects::{JClass, JString};
 use jni::sys::jstring;
 
 use database::orm::do_some_db_op;
 use database::sqlite::SqliteHelper;
+use load_dotenv::{load_dotenv, load_dotenv_from_filename};
 use logger::MyLogger;
 
-mod logger;
-mod error;
-mod database;
-
-
-// load your .env file at compile time
-// load_dotenv!();
 
 // load your .env.android file at compile time
 load_dotenv_from_filename!(".env.android");
 
+
+mod logger;
+mod error;
+mod database;
 
 #[no_mangle]
 pub unsafe extern fn Java_com_rust_example_android_MainActivity_greeting(
@@ -77,11 +74,11 @@ pub unsafe extern fn Java_com_rust_example_android_MainActivity_rustSqlite(
     let result = MyLogger::init("app_rust_sql_123");
     match result {
         Ok(_) => {
-            trace!("MyLogger::init success !!!");
-            debug!("MyLogger::init success !!!");
-            info!("MyLogger::init success !!!");
-            warn!("MyLogger::init success !!!");
             error!("MyLogger::init success !!!");
+            warn!("MyLogger::init success !!!");
+            info!("MyLogger::init success !!!");
+            debug!("MyLogger::init success !!!");
+            trace!("MyLogger::init success !!!");
         }
         Err(err) => error!("{}", err.description()),
     }

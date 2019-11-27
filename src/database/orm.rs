@@ -50,7 +50,11 @@ pub fn show_posts(conn: &SqliteConnection) -> LibResult<Vec<Post>> {
         .load::<Post>(conn)?;
     //.expect("Error loading posts");
 
+    error!("Displaying {} posts", posts.len());
+    warn!("Displaying {} posts", posts.len());
     info!("Displaying {} posts", posts.len());
+    debug!("Displaying {} posts", posts.len());
+    trace!("Displaying {} posts", posts.len());
     for post in &posts {
         info!("{}", post.title);
         info!("----------\n");
