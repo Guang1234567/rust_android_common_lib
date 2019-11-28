@@ -6,7 +6,7 @@ use diesel::prelude::*;
 use diesel::SqliteConnection;
 
 use crate::error::LibResult;
-use crate::logger::MyLogger;
+use crate::my_log::MyLogger;
 
 use super::models::{NewPost, Post};
 use super::schema::posts::dsl::{posts as posts_table, published as posts_published, title as posts_title};

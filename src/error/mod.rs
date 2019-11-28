@@ -1,12 +1,17 @@
 use std::convert::From;
 use std::error::Error;
+use std::io::Error as IoError;
 use std::fmt::{Display, Formatter, Result as FmtResult};
+use std::sync::mpsc::{RecvError as MpscRecvError, SendError as MpscSendError};
 
 use diesel::ConnectionError;
 use diesel::migration::RunMigrationsError;
 use diesel::result::Error as CrudError;
-use log::SetLoggerError;
 use dotenv::Error as DotEnvError;
+use jni::errors::Error as JniError;
+use log::SetLoggerError;
+
+use std::marker::Send;
 
 use LibError::*;
 
@@ -16,6 +21,9 @@ pub enum LibError {
     DotEnvErr(Box<dyn Error>),
     LogErr(Box<dyn Error>),
     DatabaseErr(Box<dyn Error>),
+    JniErr(Box<dyn Error>),
+    MpscErr(Box<dyn Error>),
+    IoErr(Box<dyn Error>),
 }
 
 pub type LibResult<T> = Result<T, LibError>;
@@ -26,9 +34,34 @@ impl From<SetLoggerError> for LibError {
     }
 }
 
+impl From<JniError> for LibError {
+    fn from(err: JniError) -> Self {
+        JniErr(err.into())
+    }
+}
+
 impl From<DotEnvError> for LibError {
     fn from(err: DotEnvError) -> Self {
         DotEnvErr(err.into())
+    }
+}
+
+impl From<MpscRecvError> for LibError {
+    fn from(err: MpscRecvError) -> Self {
+        MpscErr(err.into())
+    }
+}
+
+impl<T> From<MpscSendError<T>> for LibError
+    where T: Send + 'static {
+    fn from(err: MpscSendError<T>) -> Self {
+        MpscErr(err.into())
+    }
+}
+
+impl From<IoError> for LibError {
+    fn from(err: IoError) -> Self {
+        IoErr(err.into())
     }
 }
 
@@ -57,6 +90,9 @@ impl Display for LibError {
             DotEnvErr(e) => e.fmt(f),
             LogErr(e) => e.fmt(f),
             DatabaseErr(e) => e.fmt(f),
+            JniErr(e) => e.fmt(f),
+            MpscErr(e) => e.fmt(f),
+            IoErr(e) => e.fmt(f),
         }
     }
 }
@@ -68,6 +104,9 @@ impl Error for LibError {
             DotEnvErr(e) => e.description(),
             LogErr(e) => e.description(),
             DatabaseErr(e) => e.description(),
+            JniErr(e) => e.description(),
+            MpscErr(e) => e.description(),
+            IoErr(e) => e.description(),
         }
     }
     fn cause(&self) -> Option<&Error> {
@@ -76,6 +115,9 @@ impl Error for LibError {
             DotEnvErr(e) => Some(&**e),
             LogErr(e) => Some(&**e),
             DatabaseErr(e) => Some(&**e),
+            JniErr(e) => Some(&**e),
+            MpscErr(e) => Some(&**e),
+            IoErr(e) => Some(&**e),
         }
     }
 }

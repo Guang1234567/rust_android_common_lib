@@ -1,27 +1,31 @@
 #!/bin/bash
 
-#/${HOME}/dev_kit/sdk/android_sdk/ndk-bundle/prebuilt/darwin-x86_64/bin/gdb
+# http://ian-ni-lewis.blogspot.com/2011/05/ndk-debugging-without-root-access.html
 
 APP_ID=$1
 PORT=1337
-PID=$2
 
 adb push gdbserver/x86_64/gdbserver /data/local/tmp
 
-# adb push gdbserver/arm64-v8a/gdbserver /data/local/tmp
+#adb push gdbserver/arm64-v8a/gdbserver /data/local/tmp
 
-adb shell "chmod 777 /data/local/tmp/gdbserver"
+PID=`adb shell "ps -A | grep ${APP_ID}" | awk '{ print $2 }'`
+echo "${APP_ID} 's pid = ${PID}"
+
+adb shell "run-as ${APP_ID} sh -c 'mkdir -p /data/data/${APP_ID}/files'"
+
+adb shell "cat /data/local/tmp/gdbserver | run-as ${APP_ID} sh -c 'cat > /data/data/${APP_ID}/files/gdbserver && chmod 700 /data/data/${APP_ID}/files/gdbserver'"
 
 adb push start_gdb_server_x86_64.sh /data/local/tmp
 
-adb shell "chmod 777 /data/local/tmp/start_gdb_server_x86_64.sh"
+adb shell "cat /data/local/tmp/start_gdb_server_x86_64.sh | run-as ${APP_ID} sh -c 'cat > /data/data/${APP_ID}/files/start_gdb_server_x86_64.sh && chmod 700 /data/data/${APP_ID}/files/start_gdb_server_x86_64.sh'"
 
 adb root
 
 adb forward tcp:${PORT} tcp:${PORT}
 
-echo -e "/data/local/tmp/start_gdb_server_x86_64.sh ${APP_ID} ${PORT} ${PID}"
+echo -e "/data/data/${APP_ID}/files/start_gdb_server_x86_64.sh ${APP_ID} ${PORT} ${PID}"
 
-adb shell "/data/local/tmp/start_gdb_server_x86_64.sh ${APP_ID} ${PORT} ${PID}"
+adb shell "run-as ${APP_ID} sh -c '/data/data/${APP_ID}/files/start_gdb_server_x86_64.sh ${APP_ID} ${PORT} ${PID}'"
 
 

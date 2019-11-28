@@ -4,3 +4,6 @@
 [submodule "third_part_libs/load-dotenv"]
 	path = third_part_libs/load-dotenv
 	url = git@github.com:Guang1234567/load-dotenv.git
+[submodule "third_part_libs/jni-rs"]
+	path = third_part_libs/jni-rs
+	url = https://github.com/Guang1234567/jni-rs
