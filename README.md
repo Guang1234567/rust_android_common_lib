@@ -53,7 +53,11 @@ or
 
 Clion remote debug cfg:
 
-![](./lldb/bin/clion_remote_debug_cfg.png)
+- gdb
 
+![](./lldb/bin/clion_remote_debug_cfg_gdb.png)
 
+- lldb
+
+![](./lldb/bin/clion_remote_debug_cfg_lldb.png)
 

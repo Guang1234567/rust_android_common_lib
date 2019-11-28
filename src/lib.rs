@@ -71,7 +71,7 @@ pub unsafe extern fn Java_com_rust_example_android_MainActivity_rustSqlite(
 
     //dotenv().ok();
 
-    let result = MyLogger::init("app_rust_sql_123");
+    let result = MyLogger::init(env!("RUST_LOG_TAG","You forgot to export RUST_LOG_TAG"));
     match result {
         Ok(_) => {
             error!("MyLogger::init success !!!");

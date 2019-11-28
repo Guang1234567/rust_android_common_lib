@@ -13,15 +13,15 @@ lazy_static! {
 pub struct MyLogger {}
 
 impl MyLogger {
-    pub fn init<S: Into<String>>(tag: S) -> LibResult<()> {
+    pub fn init<S: Into<Vec<u8>>>(tag: S) -> LibResult<()> {
         //MY_ANDROID_LOGGER.init()?;
         android_logger::init_once(
             Config::default()
                 .with_min_level(Level::Trace) // limit log level
-                .with_tag(env!("RUST_LOG_TAG","You forgot to export RUST_LOG_TAG")) // logs will show under mytag tag
+                .with_tag(tag) // logs will show under mytag tag
                 .with_filter( // configure messages for specific crate
                               FilterBuilder::new()
-                                  .parse(env!("RUST_LOG_FILTER","You forgot to export RUST_LOG_TAG")) // `greetings` is dynamic-share-lib-name in Cargo.toml
+                                  .parse(env!("RUST_LOG_FILTER","You forgot to export RUST_LOG_FILTER")) // `greetings` is dynamic-share-lib-name in Cargo.toml
                                   .build())
         );
 
