@@ -45,7 +45,6 @@ find_library( # Sets the name of the path variable.
         # you want CMake to locate.
         log)
 
-#[[
 set(distribution_DIR ${CMAKE_SOURCE_DIR}/../../../../../../target/${ALIAS_0_ANDROID_ABI}/${BUILD_TYPE_TOLOWER})
 
 add_library(
@@ -57,13 +56,14 @@ set_target_properties(
         greetings
         PROPERTIES
         IMPORTED_LOCATION ${distribution_DIR}/libgreetings.so)
-]]
 
+
+#[[
 set(distribution_DIR ${CMAKE_SOURCE_DIR}/../jniLibs/${CMAKE_ANDROID_ARCH_ABI})
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -L${distribution_DIR}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -L${distribution_DIR}")
-
+]]
 
 # Specifies libraries CMake should link to your target library. You
 # can link multiple libraries, such as libraries you define in this
